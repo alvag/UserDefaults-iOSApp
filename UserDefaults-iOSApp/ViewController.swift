@@ -17,9 +17,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func guardar(_ sender: UIButton) {
-        UserDefaults.standard.set(self.textField.text, forKey: "valor")
-        self.textField.text = ""
-        self.textField.resignFirstResponder()
+        
+        if self.textField.text == "" {
+            let alerta = UIAlertController(title: "Alerta", message: "Escribe algo", preferredStyle: .actionSheet) // .alert
+            let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alerta.addAction(ok)
+            present(alerta, animated: true, completion: nil)
+        } else {
+            UserDefaults.standard.set(self.textField.text, forKey: "valor")
+            self.textField.text = ""
+            self.textField.resignFirstResponder()
+        }
     }
 
     @IBAction func mostrar(_ sender: UIButton) {
