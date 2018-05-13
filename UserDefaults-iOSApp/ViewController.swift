@@ -9,17 +9,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var textField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    @IBAction func guardar(_ sender: UIButton) {
+        UserDefaults.standard.set(self.textField.text, forKey: "valor")
+        self.textField.text = ""
+        self.textField.resignFirstResponder()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func mostrar(_ sender: UIButton) {
+        let result = UserDefaults.standard.object(forKey: "valor")
+        self.textField.text = result as? String
     }
-
-
+    
+    // permite ocultar el teclado al presionar en otro lado
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
 
